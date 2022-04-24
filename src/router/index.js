@@ -1,25 +1,37 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-
-const routes = [
-  {
-    path: '/',
-    name: 'home',
-    component: HomeView
-  },
-  {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  }
-]
+import { LoginCallback, navigationGuard } from '@okta/okta-vue'
+import HomeComponent from '@/components/Home'
+import LoginComponent from '@/components/Login'
+import ProfileComponent from '@/components/Profile'
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
-  routes
+  history: createWebHistory(),
+  routes: [
+    {
+      path: '/',
+      component: HomeComponent,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/login',
+      component: LoginComponent
+    },
+    {
+      path: '/login/callback',
+      component: LoginCallback
+    },
+    {
+      path: '/profile',
+      component: ProfileComponent,
+      meta: {
+        requiresAuth: true
+      }
+    }
+  ]
 })
+
+router.beforeEach(navigationGuard)
 
 export default router
