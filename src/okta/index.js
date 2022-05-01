@@ -7,7 +7,7 @@ const clientId = '0oa4so7o45TiSdNQJ5d7';
 const oktaSignIn = new OktaSignIn({
     baseUrl: yourOktaUri,
     clientId: clientId,
-    redirectUri: 'http://localhost:8080/login/callback',
+    redirectUri: window.location.origin + '/login/callback',
     authParams: {
         pkce: true,
         issuer: yourOktaUri + '/oauth2/default',
