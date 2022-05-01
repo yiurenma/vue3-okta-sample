@@ -3,7 +3,7 @@
     <nav>
       <div>
         <router-link to="/">
-          Home
+          Home1
         </router-link>
         <router-link to="/login" v-if="!authenticated">
           Login
